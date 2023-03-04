@@ -1,0 +1,4 @@
+ftpServer: 'ftp.us.debian.org'
+distDirPathToCopy : 'debian'
+localFolder : 'localFolder'
+internalNetworkDir : 'internalNetworkFolder'
