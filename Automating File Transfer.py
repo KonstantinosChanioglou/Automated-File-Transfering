@@ -1,24 +1,3 @@
-''' You work at a company that receives daily data files from external partners. These files need to be processed and analyzed, but first, they need to be transferred to the company's internal network.
-
-The goal of this project is to automate the process of transferring the files from an external FTP server to the company's internal network.
-
-Here are the steps you can take to automate this process:
-
-    DONE - Use the ftplib library to connect to the external FTP server and list the files in the directory.
-
-    DONE - Use the os library to check for the existence of a local directory where the files will be stored.
-
-    DONE - Use a for loop to iterate through the files on the FTP server and download them to the local directory using the ftplib.retrbinary() method.
-
-    DONE/Question - Use the shutil library to move the files from the local directory to the internal network.
-
-    Done -  Use the schedule library to schedule the script to run daily at a specific time.
-
-    Done - You can also set up a log file to keep track of the files that have been transferred and any errors that may have occurred during the transfer process. '''
-
-
-
-
 from ftplib import FTP
 import os
 import shutil
@@ -26,8 +5,6 @@ import yaml
 import schedule
 import time
 import datetime
-
-#pip install pyyaml
 
 
 def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
@@ -54,6 +31,7 @@ def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
     # ls_status = ftp.retrlines('LIST')  # It just lists the contents of a directory. It does to transfer smth. It Returns '226 Transfer complete' or '550 Failed to open file'
     # print(ls_status)
 
+    #if not exist create the folder
     if not os.path.exists(localFolder):
         os.mkdir(localFolder)
 
@@ -82,6 +60,7 @@ def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
 
 def moveFilesToInternalNetwork(localFolder, internalNetworkDir):
 
+    #if not exist create the folder
     if not os.path.exists(internalNetworkDir):
         os.mkdir(internalNetworkDir)
 
