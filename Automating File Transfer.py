@@ -97,7 +97,7 @@ def automaticFileTransfer():
     with open('parameters.yaml') as f:
         args = yaml.load(f, Loader=yaml.FullLoader)
 
-    #Reading arguments from yaml file does not require to run again the program after an argument changes 
+    #Reading arguments from yaml file does not require to run again the program after an argument is changed 
     everythingOk = transferFilesFromFTPServer(args['ftpServer'], args['distDirPathToCopy'], args['localFolder']) #transfer files from distDirPathToCopy to localFolder
     if everythingOk:
         moveFilesToInternalNetwork(args['localFolder'], args['internalNetworkDir']) #move files from localFolder to internalNetworkDir
