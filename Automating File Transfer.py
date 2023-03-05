@@ -44,16 +44,17 @@ def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
         except Exception as e:
             untrasferedFiles[filename] = str(e)
             os.remove(localFolder +'/'+filename)
+    
+    quit_status = ftp.quit()
 
     #Write to Logs
     if(len(untrasferedFiles) > 0):
         log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] ERROR: Files that did not transfered from FTP Server: ' + str(untrasferedFiles) + "\n")
     else:
         log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] All files transfered succesfully' + "\n")
-
-    quit_status = ftp.quit()
-    log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +']' + quit_status + ' Transfer process Completed!' + "\n")
+    log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] ' + quit_status + ' Transfer process Completed!' + "\n")
     log.close()
+    
     return True
 
 
@@ -78,18 +79,16 @@ def moveFilesToInternalNetwork(localFolder, internalNetworkDir):
         if os.path.isfile(source):
             shutil.move(source, destination)
         else:
-            unmovedFiles.append(file_name)
-
-    #Prepare writing to log File
-    log = open("logs.txt", "a+") #create if not exists and append at the end
+            unmovedFiles.append(file_name)  
 
     #Write to Logs
+    log = open("logs.txt", "a+") #create if not exists and append at the end
     if(len(unmovedFiles) > 0):
         log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] ERROR: Files that did not moved to internal network from local directory:' + str(unmovedFiles) + "\n")
     else:
         log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] All files moved to internal network succesfully' + "\n")
-
     log.close()
+    
 
 def automaticFileTransfer():
     args = {}
@@ -104,8 +103,8 @@ def automaticFileTransfer():
 def main():
 
     # Run daily at 08:00
-    #schedule.every().day.at("08:00").do(automaticFileTransfer)
-    schedule.every(30).seconds.do(automaticFileTransfer)
+    schedule.every().day.at("08:00").do(automaticFileTransfer)
+    #schedule.every(30).seconds.do(automaticFileTransfer) #for testing
 
     # Loop so that the scheduling task keeps on running all time.
     while True:
