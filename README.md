@@ -8,7 +8,7 @@ This project automates the process of transferring files from an external FTP se
 For customization you only need to change the parameters.yaml file. This file contains the next parameters:
 + FTP Server
 + username (if needed by FTP Server, by default '' -> anonymous )
-+ psw ((if needed by FTP Server, by default '' -> anonymous )
++ psw (if needed by FTP Server, by default '' -> anonymous )
 + FTP Server directory's name to copy
 + Local folder name to which the files will be transfered initialy
 + Internal network folder name to which the files will be transfered after all
