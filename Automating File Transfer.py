@@ -10,7 +10,7 @@ import datetime
 def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
 
     #Prepare writing to log File
-    log = open("logs.txt", "a+") #create if not exists 
+    log = open("logs.txt", "a+") #create if not exists and append at the end
     log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] ----- Next Run ----- ' + "\n")
 
     try:
@@ -34,7 +34,6 @@ def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
     #if not exist create the folder
     if not os.path.exists(localFolder):
         os.mkdir(localFolder)
-
 
     untrasferedFiles = {}
     for filename in ftp.nlst(): #iterate all files in the current directory
@@ -82,7 +81,7 @@ def moveFilesToInternalNetwork(localFolder, internalNetworkDir):
             unmovedFiles.append(file_name)
 
     #Prepare writing to log File
-    log = open("logs.txt", "a+") #create if not exists 
+    log = open("logs.txt", "a+") #create if not exists and append at the end
 
     #Write to Logs
     if(len(unmovedFiles) > 0):
@@ -105,7 +104,8 @@ def automaticFileTransfer():
 def main():
 
     # Run daily at 08:00
-    schedule.every().day.at("08:00").do(automaticFileTransfer)
+    #schedule.every().day.at("08:00").do(automaticFileTransfer)
+    schedule.every(30).seconds.do(automaticFileTransfer)
 
     # Loop so that the scheduling task keeps on running all time.
     while True:
