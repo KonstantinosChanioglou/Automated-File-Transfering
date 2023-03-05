@@ -9,9 +9,9 @@ For customization you only need to change the parameters.yaml file. This file co
 + FTP Server
 + username (if needed by FTP Server, by default '' -> anonymous )
 + psw ((if needed by FTP Server, by default '' -> anonymous )
-+ FTP Server directory's contents to copy
-+ Local folder to which the files will be transfered initialy
-+ Internal network folder to which the files will be transfered after all
++ FTP Server directory's name to copy
++ Local folder name to which the files will be transfered initialy
++ Internal network folder name to which the files will be transfered after all
 
 Yaml file provides the ability to the user to change the parameters' values without stopping the execution of the script. In this way, the new parameters will be taken into considerartion in the next scheduled run.
 
