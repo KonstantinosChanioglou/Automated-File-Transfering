@@ -1,7 +1,7 @@
 # Automating-File-Transfer
 
 
-## Report
+## Description
 This project automates the process of transferring files from an external FTP server to a company's internal network. The script is scheduled to run daily and it writes  needed imformation about every execution in the log file.
 
 ## Customization
