@@ -7,7 +7,7 @@ import time
 import datetime
 
 
-def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
+def transferFilesFromFTPServer(ftpServer, username, psw, distDirPathToCopy, localFolder):
 
     #Prepare writing to log File
     log = open("logs.txt", "a+") #create if not exists and append at the end
@@ -15,7 +15,11 @@ def transferFilesFromFTPServer(ftpServer, distDirPathToCopy, localFolder):
 
     try:
         ftp = FTP(ftpServer)  # connect to host, default port - SELECT YOUR DESIRED FTP SERVER
-        login_status = ftp.login() # user='anonymous', passwd='anonymous@', if there is username and psw ftp.login(user='uor_user', passwd='your_psw')  
+        if(username == '' and psw == ''):
+            login_status = ftp.login() # user='anonymous', passwd='anonymous@'
+        else:
+            login_status = ftp.login(user=username, passwd=psw) #if there is username and psw ftp.login(user='your_user', passwd='your_psw')  
+
         log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] ' + login_status + ' FTP Server: ' + ftpServer + "\n")
     except Exception as e:
         log.write('['+ datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +'] ERROR: Coudnt connect to FTP Server: '+ str(e) + "\n")
@@ -96,7 +100,7 @@ def automaticFileTransfer():
         args = yaml.load(f, Loader=yaml.FullLoader)
 
     #Reading arguments from yaml file does not require to run again the program after an argument is changed 
-    everythingOk = transferFilesFromFTPServer(args['ftpServer'], args['distDirPathToCopy'], args['localFolder']) #transfer files from distDirPathToCopy to localFolder
+    everythingOk = transferFilesFromFTPServer(args['ftpServer'], args['usename'], args['psw'], args['distDirPathToCopy'], args['localFolder']) #transfer files from distDirPathToCopy to localFolder
     if everythingOk:
         moveFilesToInternalNetwork(args['localFolder'], args['internalNetworkDir']) #move files from localFolder to internalNetworkDir
 
