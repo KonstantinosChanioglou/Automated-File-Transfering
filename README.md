@@ -1,4 +1,4 @@
-# Automating-File-Transfer
+# Automated-File-Transfering
 
 
 ## Description
